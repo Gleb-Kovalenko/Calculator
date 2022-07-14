@@ -8,7 +8,6 @@ enum BinaryOp: Character, Equatable {
     case power = "^"
 }
 
-
 enum UnaryOp: Character, Equatable {
     case negative = "_"
 }
@@ -51,23 +50,21 @@ extension ParseError: LocalizedError {
     }
 }
 
-
 extension Character {
     var isDot: Bool {
         self == Character(".")
     }
 }
 
-
-
 func parser(enteredString: String) throws -> [Token] {
+    
     print("Входная строка: ", enteredString)
     var noSpacesString = enteredString.replacingOccurrences(of: " ", with: "").lowercased()
     var tokenArray: [Token] = []
     var array: [String] = []
     var tokenString = ""
     
-    while !noSpacesString.isEmpty || !tokenString.isEmpty{
+    while !noSpacesString.isEmpty || !tokenString.isEmpty {
         let symbol = !noSpacesString.isEmpty ? noSpacesString.removeFirst() : " "
         if !symbol.isLetter && !symbol.isDot && !symbol.isNumber{
             if let number = Double(tokenString) {
@@ -98,6 +95,7 @@ func parser(enteredString: String) throws -> [Token] {
             tokenString += String(symbol)
         }
     }
+    
     print("Ответ в виде массива строчек:\n",array)
     return tokenArray
 }
