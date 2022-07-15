@@ -96,3 +96,6 @@ iOSInjectionProject/
 .DS_Store
 .DS_Store?
 *Carthage/.DS_Store
+
+IDEWorkspaceChecks.plist
+xcschememanagement.plist

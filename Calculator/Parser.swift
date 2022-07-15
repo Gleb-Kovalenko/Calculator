@@ -1,6 +1,8 @@
 import Foundation
 
-enum BinaryOp: Character, Equatable {
+// MARK - BinaryOperation
+
+enum BinaryOperation: Character, Equatable {
     case addition = "+"
     case substraction = "-"
     case multiply = "*"
@@ -8,34 +10,46 @@ enum BinaryOp: Character, Equatable {
     case power = "^"
 }
 
-enum UnaryOp: Character, Equatable {
-    case negative = "_"
+// MARK - UnaryOperation
+
+enum UnaryOperation: Character, Equatable {
+    case negative = "-"
 }
 
-enum Function: String, Equatable {
+// MARK - MathFunction
+
+enum MathFunction: String, Equatable {
     case sin
     case cos
     case tg
 }
+
+// MARK - Bracket
 
 enum Bracket: Character, Equatable {
     case open = "("
     case close = ")"
 }
 
+// MARK - Token
+
 enum Token: Equatable {
     case number(Double)
-    case binaryOp(BinaryOp)
-    case unaryOp(UnaryOp)
-    case function(Function)
+    case binaryOperation(BinaryOperation)
+    case unaryOperation(UnaryOperation)
+    case mathFunction(MathFunction)
     case bracket(Bracket)
 }
+
+// MARK - ParseError
 
 enum ParseError: Error {
     case oneMoreDot
     case unknownFunction
     case unknownOperation
 }
+
+// MARK - LocalizedError
 
 extension ParseError: LocalizedError {
     public var errorDescription: String? {
@@ -50,52 +64,58 @@ extension ParseError: LocalizedError {
     }
 }
 
+// MARK - Character
+
 extension Character {
     var isDot: Bool {
         self == Character(".")
     }
 }
 
-func parser(enteredString: String) throws -> [Token] {
-    
-    print("Входная строка: ", enteredString)
-    var noSpacesString = enteredString.replacingOccurrences(of: " ", with: "").lowercased()
-    var tokenArray: [Token] = []
-    var array: [String] = []
-    var tokenString = ""
-    
-    while !noSpacesString.isEmpty || !tokenString.isEmpty {
-        let symbol = !noSpacesString.isEmpty ? noSpacesString.removeFirst() : " "
-        if !symbol.isLetter && !symbol.isDot && !symbol.isNumber{
-            if let number = Double(tokenString) {
-                array.append(tokenString)
-                tokenArray.append(Token.number(number))
-            } else if tokenString.filter({ $0.isDot }).count > 1{
-                throw ParseError.oneMoreDot
-            } else if let function = Function(rawValue: tokenString) {
-                tokenArray.append(Token.function(function))
-                array.append(String(tokenString))
-            } else if !tokenString.isEmpty{
-                throw ParseError.unknownFunction
+// MARK - ExpressionParser
+
+protocol ExpressionParser {
+    associatedtype Item
+    func parse(expression: String) throws -> [Item]
+}
+
+// MARK - MathExpressionParser
+
+class MathExpressionParser: ExpressionParser {
+    func parse(expression: String) throws -> [Token] {
+        print("Входная строка: ", expression)
+        var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
+        var tokenArray: [Token] = []
+        var tokenString = ""
+        
+        while !noSpacesString.isEmpty || !tokenString.isEmpty {
+            let symbol = !noSpacesString.isEmpty ? noSpacesString.removeFirst() : " "
+            if !symbol.isLetter && !symbol.isDot && !symbol.isNumber {
+                if let number = Double(tokenString) {
+                    tokenArray.append(.number(number))
+                } else if tokenString.filter(\.isDot).count > 1 {
+                    throw ParseError.oneMoreDot
+                } else if let function = MathFunction(rawValue: tokenString) {
+                    tokenArray.append(.mathFunction(function))
+                } else if !tokenString.isEmpty {
+                    throw ParseError.unknownFunction
+                }
+                if UnaryOperation(rawValue: symbol) != nil && tokenArray.last == .bracket(.open) {
+                    if let unaryOperation = UnaryOperation(rawValue: symbol) {
+                        tokenArray.append(.unaryOperation(unaryOperation))
+                    }
+                } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
+                    tokenArray.append(.binaryOperation(binaryOperation))
+                } else if let bracket = Bracket(rawValue: symbol) {
+                    tokenArray.append(.bracket(bracket))
+                } else if symbol != Character(" ") {
+                    throw ParseError.unknownOperation
+                }
+                tokenString = ""
+            } else {
+                tokenString += String(symbol)
             }
-            if let binaryOp = BinaryOp(rawValue: symbol) {
-                tokenArray.append(Token.binaryOp(binaryOp))
-                array.append(String(symbol))
-            } else if let unaryOp = UnaryOp(rawValue: symbol) {
-                tokenArray.append(Token.unaryOp(unaryOp))
-                array.append(String(symbol))
-            } else if let bracket = Bracket(rawValue: symbol) {
-                tokenArray.append(Token.bracket(bracket))
-                array.append(String(symbol))
-            } else if symbol != Character(" ") {
-                throw ParseError.unknownOperation
-            }
-            tokenString = ""
-        } else {
-            tokenString += String(symbol)
         }
+        return tokenArray
     }
-    
-    print("Ответ в виде массива строчек:\n",array)
-    return tokenArray
 }
