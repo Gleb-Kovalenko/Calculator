@@ -10,4 +10,3 @@
 enum UnaryOperation: Character, Equatable {
     case negative = "-"
 }
-

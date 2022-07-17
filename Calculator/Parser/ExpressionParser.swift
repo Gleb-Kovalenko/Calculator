@@ -8,6 +8,8 @@
 // MARK - ExpressionParser
 
 protocol ExpressionParser {
+    
     associatedtype Token
+    
     func parse(expression: String) throws -> [Token]
 }

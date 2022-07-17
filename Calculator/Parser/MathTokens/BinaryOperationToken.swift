@@ -14,4 +14,3 @@ enum BinaryOperation: Character, Equatable {
     case division = "/"
     case power = "^"
 }
-
