@@ -3,6 +3,8 @@ import XCTest
 
 class CalculatorTests: XCTestCase {
     
+    private let mathParser = MathExpressionParser()
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -12,7 +14,7 @@ class CalculatorTests: XCTestCase {
     }
     
     func testExample() throws {
-        let testDictionary: [String: [Token]] = [
+        let testDictionary: [String: [MathExpressionToken]] = [
             "sin(cos(5)) + (1 + (-5) - 2.6)*3.9": [
                 .mathFunction(.sin),
                 .bracket(.open),
@@ -192,7 +194,6 @@ class CalculatorTests: XCTestCase {
             ]
         ]
         
-        let mathParser = MathExpressionParser()
         for (expression, expectedResult) in testDictionary {
             let parserResult = try mathParser.parse(expression: expression)
             XCTAssertEqual(parserResult.count, expectedResult.count)

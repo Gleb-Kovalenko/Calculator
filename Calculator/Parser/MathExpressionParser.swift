@@ -1,91 +1,19 @@
-import Foundation
-
-// MARK - BinaryOperation
-
-enum BinaryOperation: Character, Equatable {
-    case addition = "+"
-    case substraction = "-"
-    case multiply = "*"
-    case division = "/"
-    case power = "^"
-}
-
-// MARK - UnaryOperation
-
-enum UnaryOperation: Character, Equatable {
-    case negative = "-"
-}
-
-// MARK - MathFunction
-
-enum MathFunction: String, Equatable {
-    case sin
-    case cos
-    case tg
-}
-
-// MARK - Bracket
-
-enum Bracket: Character, Equatable {
-    case open = "("
-    case close = ")"
-}
-
-// MARK - Token
-
-enum Token: Equatable {
-    case number(Double)
-    case binaryOperation(BinaryOperation)
-    case unaryOperation(UnaryOperation)
-    case mathFunction(MathFunction)
-    case bracket(Bracket)
-}
-
-// MARK - ParseError
-
-enum ParseError: Error {
-    case oneMoreDot
-    case unknownFunction
-    case unknownOperation
-}
-
-// MARK - LocalizedError
-
-extension ParseError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .oneMoreDot:
-            return "Error: Some number has more than one dot"
-        case .unknownFunction:
-            return "Error: No match with some function"
-        case .unknownOperation:
-            return "Error: No match with some operation"
-        }
-    }
-}
-
-// MARK - Character
-
-extension Character {
-    var isDot: Bool {
-        self == Character(".")
-    }
-}
-
-// MARK - ExpressionParser
-
-protocol ExpressionParser {
-    associatedtype Item
-    func parse(expression: String) throws -> [Item]
-}
+//
+//  MathExpressionParser.swift
+//  Calculator
+//
+//  Created by Глеб Коваленко on 17.07.2022.
+//
 
 // MARK - MathExpressionParser
 
-class MathExpressionParser: ExpressionParser {
-    func parse(expression: String) throws -> [Token] {
+final class MathExpressionParser: ExpressionParser {
+    
+    func parse(expression: String) throws -> [MathExpressionToken] {
+        
         print("Входная строка: ", expression)
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
-        var tokenArray: [Token] = []
+        var tokenArray: [MathExpressionToken] = []
         var tokenString = ""
         
         while !noSpacesString.isEmpty || !tokenString.isEmpty {
