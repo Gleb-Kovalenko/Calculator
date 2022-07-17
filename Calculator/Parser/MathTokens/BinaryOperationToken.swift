@@ -2,7 +2,7 @@
 //  BinaryOperationToken.swift
 //  Calculator
 //
-//  Created by Глеб Коваленко on 17.07.2022.
+//  Created by Gleb Kovalenko on 17.07.2022.
 //
 
 // MARK - BinaryOperation
