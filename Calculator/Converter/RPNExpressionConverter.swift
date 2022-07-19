@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK - MathExpressionConverter
+// MARK - RPNExpressionConverter
 
-final class MathExpressionConverter: ExpressionConverter {
+final class RPNExpressionConverter: ExpressionConverter {
     
     func convert(expression: [MathExpressionToken]) throws -> [MathExpressionToken] {
         
@@ -20,11 +20,13 @@ final class MathExpressionConverter: ExpressionConverter {
         while !expression.isEmpty {
             let currentToken = expression.removeFirst()
             switch currentToken {
-            case .number : convertedTokenArray.append(currentToken)
-            case .mathFunction, .unaryOperation, .bracket(.open): stack.push(currentToken)
+            case .number :
+                convertedTokenArray.append(currentToken)
+            case .mathFunction, .unaryOperation, .bracket(.open):
+                stack.push(currentToken)
             case .bracket(.close):
                 while stack.peek() != .bracket(.open) {
-                    if let token = stack.pop(){
+                    if let token = stack.pop() {
                         if stack.isEmpty && token != .bracket(.open) {
                             throw ConverterError.wrongBrackets
                         }
@@ -33,8 +35,8 @@ final class MathExpressionConverter: ExpressionConverter {
                 }
                 stack.pop()
             case .binaryOperation(let binaryOperation):
-                var flag = true
-                while flag {
+                var isNeedToPopStack = true
+                while isNeedToPopStack {
                     switch stack.peek() {
                     case .mathFunction, .unaryOperation:
                         if let token = stack.pop() {
@@ -46,7 +48,7 @@ final class MathExpressionConverter: ExpressionConverter {
                         }
                     default:
                         stack.push(currentToken)
-                        flag = false
+                        isNeedToPopStack = false
                     }
                 }
             }

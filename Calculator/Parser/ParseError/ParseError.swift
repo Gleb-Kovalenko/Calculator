@@ -11,8 +11,8 @@ import Foundation
 
 enum ParseError: Error {
     case oneMoreDot
-    case unknownFunction
-    case unknownOperation
+    case unknownFunction(function: String)
+    case unknownOperation(operation: Character)
 }
 
 // MARK - LocalizedError
@@ -21,11 +21,11 @@ extension ParseError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .oneMoreDot:
-            return "Error: Some number has more than one dot"
-        case .unknownFunction:
-            return "Error: No match with some function"
-        case .unknownOperation:
-            return "Error: No match with some operation"
+            return "Some number has more than one dot"
+        case .unknownFunction(let function):
+            return "Unknown function: \(function)"
+        case .unknownOperation(let operation):
+            return "Unknown operation: \(operation)"
         }
     }
 }

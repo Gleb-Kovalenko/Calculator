@@ -11,5 +11,9 @@ protocol ExpressionConverter {
     
     associatedtype Token: Equatable
     
+    /// Convert received subsequence in something new subsequence
+    /// expression - subsequence to convert
+    /// - Returns: new subsequence
+    /// Example: Parsed string in RPN string
     func convert(expression: [Token]) throws -> [Token]
 }

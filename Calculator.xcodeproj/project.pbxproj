@@ -10,10 +10,10 @@
 		5410556A2885D597004528A2 /* Stackable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541055692885D597004528A2 /* Stackable.swift */; };
 		5410556C2885D5BD004528A2 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5410556B2885D5BD004528A2 /* Stack.swift */; };
 		541055722885DA15004528A2 /* ExpressionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541055712885DA15004528A2 /* ExpressionConverter.swift */; };
-		541055742885E003004528A2 /* MathExpressionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541055732885E002004528A2 /* MathExpressionConverter.swift */; };
+		541055742885E003004528A2 /* RPNExpressionConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541055732885E002004528A2 /* RPNExpressionConverter.swift */; };
 		541055772885E32B004528A2 /* ConverterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541055762885E32B004528A2 /* ConverterError.swift */; };
 		5410557B2885EA1F004528A2 /* ExpressionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5410557A2885EA1F004528A2 /* ExpressionEvaluator.swift */; };
-		5410557D2885EA69004528A2 /* MathExpressionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5410557C2885EA69004528A2 /* MathExpressionEvaluator.swift */; };
+		5410557D2885EA69004528A2 /* RPNExpressionEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5410557C2885EA69004528A2 /* RPNExpressionEvaluator.swift */; };
 		541055802885EBAE004528A2 /* EvaluatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5410557F2885EBAE004528A2 /* EvaluatorError.swift */; };
 		5476E99E2884478600B0AE4F /* ExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476E99D2884478600B0AE4F /* ExpressionParser.swift */; };
 		5476E9A1288447C400B0AE4F /* MathExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476E9A0288447C400B0AE4F /* MathExpressionParser.swift */; };
@@ -54,10 +54,10 @@
 		541055692885D597004528A2 /* Stackable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stackable.swift; sourceTree = "<group>"; };
 		5410556B2885D5BD004528A2 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		541055712885DA15004528A2 /* ExpressionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionConverter.swift; sourceTree = "<group>"; };
-		541055732885E002004528A2 /* MathExpressionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathExpressionConverter.swift; sourceTree = "<group>"; };
+		541055732885E002004528A2 /* RPNExpressionConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPNExpressionConverter.swift; sourceTree = "<group>"; };
 		541055762885E32B004528A2 /* ConverterError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterError.swift; sourceTree = "<group>"; };
 		5410557A2885EA1F004528A2 /* ExpressionEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionEvaluator.swift; sourceTree = "<group>"; };
-		5410557C2885EA69004528A2 /* MathExpressionEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathExpressionEvaluator.swift; sourceTree = "<group>"; };
+		5410557C2885EA69004528A2 /* RPNExpressionEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPNExpressionEvaluator.swift; sourceTree = "<group>"; };
 		5410557F2885EBAE004528A2 /* EvaluatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluatorError.swift; sourceTree = "<group>"; };
 		5476E99D2884478600B0AE4F /* ExpressionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionParser.swift; sourceTree = "<group>"; };
 		5476E9A0288447C400B0AE4F /* MathExpressionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathExpressionParser.swift; sourceTree = "<group>"; };
@@ -111,7 +111,7 @@
 				541055752885E317004528A2 /* ConverterError */,
 				541055682885D553004528A2 /* Stack */,
 				541055712885DA15004528A2 /* ExpressionConverter.swift */,
-				541055732885E002004528A2 /* MathExpressionConverter.swift */,
+				541055732885E002004528A2 /* RPNExpressionConverter.swift */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -138,7 +138,7 @@
 			children = (
 				5410557E2885EB82004528A2 /* EvaluatorError */,
 				5410557A2885EA1F004528A2 /* ExpressionEvaluator.swift */,
-				5410557C2885EA69004528A2 /* MathExpressionEvaluator.swift */,
+				5410557C2885EA69004528A2 /* RPNExpressionEvaluator.swift */,
 			);
 			path = Evaluator;
 			sourceTree = "<group>";
@@ -385,8 +385,8 @@
 				5410556A2885D597004528A2 /* Stackable.swift in Sources */,
 				5410556C2885D5BD004528A2 /* Stack.swift in Sources */,
 				5476E9A52884486C00B0AE4F /* UnaryOperationToken.swift in Sources */,
-				5410557D2885EA69004528A2 /* MathExpressionEvaluator.swift in Sources */,
-				541055742885E003004528A2 /* MathExpressionConverter.swift in Sources */,
+				5410557D2885EA69004528A2 /* RPNExpressionEvaluator.swift in Sources */,
+				541055742885E003004528A2 /* RPNExpressionConverter.swift in Sources */,
 				5476E9AB288448FA00B0AE4F /* MathExpressionToken.swift in Sources */,
 				5476E9A1288447C400B0AE4F /* MathExpressionParser.swift in Sources */,
 				5410557B2885EA1F004528A2 /* ExpressionEvaluator.swift in Sources */,

@@ -11,5 +11,8 @@ protocol ExpressionEvaluator {
     
     associatedtype Token
     
+    /// Calculate expression
+    /// expression - expression to calculate
+    /// - Returns: value as Double
     func evaluate(expression: [Token]) throws -> Double
 }

@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK - MathExpressionEvaluator
+// MARK - RPNExpressionEvaluator
 
-final class MathExpressionEvaluator: ExpressionEvaluator {
+final class RPNExpressionEvaluator: ExpressionEvaluator {
     
     func evaluate(expression: [MathExpressionToken]) throws -> Double {
         
@@ -66,4 +66,5 @@ final class MathExpressionEvaluator: ExpressionEvaluator {
             throw EvaluatorError.invalidSyntaxis
         }
     }
+    
 }

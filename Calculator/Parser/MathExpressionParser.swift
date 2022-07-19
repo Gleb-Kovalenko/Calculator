@@ -25,7 +25,7 @@ final class MathExpressionParser: ExpressionParser {
                 } else if let function = MathFunction(rawValue: tokenString) {
                     tokenArray.append(.mathFunction(function))
                 } else if !tokenString.isEmpty {
-                    throw ParseError.unknownFunction
+                    throw ParseError.unknownFunction(function: tokenString)
                 }
                 if UnaryOperation(rawValue: symbol) != nil && tokenArray.last == .bracket(.open) {
                     if let unaryOperation = UnaryOperation(rawValue: symbol) {
@@ -36,7 +36,7 @@ final class MathExpressionParser: ExpressionParser {
                 } else if let bracket = Bracket(rawValue: symbol) {
                     tokenArray.append(.bracket(bracket))
                 } else if symbol != Character(" ") {
-                    throw ParseError.unknownOperation
+                    throw ParseError.unknownOperation(operation: symbol)
                 }
                 tokenString = ""
             } else {

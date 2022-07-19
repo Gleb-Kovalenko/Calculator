@@ -19,7 +19,7 @@ extension ConverterError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .wrongBrackets:
-            return "Wrong bracket error: Some bracket hasn't a pair"
+            return "Inconsistent brackets: Some bracket doesn't have a pair"
         }
     }
 }
