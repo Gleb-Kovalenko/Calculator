@@ -13,4 +13,12 @@ enum BinaryOperation: Character, Equatable {
     case multiply = "*"
     case division = "/"
     case power = "^"
+    
+    var priority: Int {
+        switch self {
+        case .addition, .substraction: return 0
+        case .multiply, .division: return 1
+        case .power: return 2
+        }
+    }
 }
