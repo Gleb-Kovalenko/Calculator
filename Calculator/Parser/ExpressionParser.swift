@@ -11,7 +11,6 @@ protocol ExpressionParser {
     
     associatedtype Token
     
-    
     /// Parse string to array of something tokens
     /// - Parameter expression: string to parse
     /// - Throws: Parser errors, such as one more dot, unknown operation or function

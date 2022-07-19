@@ -11,7 +11,6 @@ protocol ExpressionEvaluator {
     
     associatedtype Token
     
-    
     /// Calculate expression
     /// - Parameter expression: expression to calculate
     /// - Throws: evaluator errors, such as invalid syntaxis, if expression can't be evaluated
