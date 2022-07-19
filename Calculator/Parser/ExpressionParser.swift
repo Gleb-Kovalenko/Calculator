@@ -11,10 +11,10 @@ protocol ExpressionParser {
     
     associatedtype Token
     
-    /// Parse string in array of something tokens
+    /// Parse string to array of tokens
     /// - Parameter expression: string to parse
-    /// - Throws: Parser errors, such as one more dot, unknown operation or function
-    /// - Returns: sequence of something tokens
-    /// Example: Parse string in math tokens
+    /// - Throws: parser errors, such as one more dot, unknown operation or function
+    /// - Returns: sequence of tokens
+    /// Example: Parse string to math tokens
     func parse(expression: String) throws -> [Token]
 }

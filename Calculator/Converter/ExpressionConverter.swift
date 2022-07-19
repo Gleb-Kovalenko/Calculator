@@ -11,10 +11,10 @@ protocol ExpressionConverter {
     
     associatedtype Token: Equatable
     
-    /// Convert received sequence in something new sequence
+    /// Convert received sequence to new sequence
     /// - Parameter expression: sequence to convert
     /// - Throws: сonverter errors, such as inconsistent brackets
     /// - Returns: new sequence
-    /// Example: Parsed string in RPN string
+    /// Example: Parsed string to RPN string
     func convert(expression: [Token]) throws -> [Token]
 }
