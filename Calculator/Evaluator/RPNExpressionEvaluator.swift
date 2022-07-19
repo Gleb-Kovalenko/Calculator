@@ -66,5 +66,4 @@ final class RPNExpressionEvaluator: ExpressionEvaluator {
             throw EvaluatorError.invalidSyntaxis
         }
     }
-    
 }
