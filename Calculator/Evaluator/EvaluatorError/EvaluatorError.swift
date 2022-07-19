@@ -2,7 +2,7 @@
 //  EvaluatorError.swift
 //  Calculator
 //
-//  Created by Глеб Коваленко on 18.07.2022.
+//  Created by Gleb Kovalenko on 18.07.2022.
 //
 
 import Foundation

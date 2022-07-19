@@ -13,7 +13,8 @@ protocol ExpressionParser {
     
     
     /// Parse string to array of something tokens
-    /// expression - string to parse
+    /// - Parameter expression - string to parse
+    /// - Throws Parser errors, such as one more dot, unknown operation or function
     /// - Returns:  subsequence of something tokens
     /// Example: Parse string in math tokens
     func parse(expression: String) throws -> [Token]

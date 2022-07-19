@@ -4,8 +4,8 @@ import XCTest
 class CalculatorTests: XCTestCase {
     
     private let mathParser = MathExpressionParser()
-    private let mathConverter = MathExpressionConverter()
-    private let mathEvaluator = MathExpressionEvaluator()
+    private let mathConverter = RPNExpressionConverter()
+    private let mathEvaluator = RPNExpressionEvaluator()
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

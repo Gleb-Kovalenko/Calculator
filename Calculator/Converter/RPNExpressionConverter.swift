@@ -1,8 +1,8 @@
 //
-//  MathExpressionConverter.swift
+//  RPNExpressionConverter.swift
 //  Calculator
 //
-//  Created by Глеб Коваленко on 18.07.2022.
+//  Created by Gleb Kovalenko on 18.07.2022.
 //
 
 import Foundation
@@ -28,7 +28,7 @@ final class RPNExpressionConverter: ExpressionConverter {
                 while stack.peek() != .bracket(.open) {
                     if let token = stack.pop() {
                         if stack.isEmpty && token != .bracket(.open) {
-                            throw ConverterError.wrongBrackets
+                            throw ConverterError.inconsistentBrackets
                         }
                         convertedTokenArray.append(token)
                     }
@@ -59,7 +59,7 @@ final class RPNExpressionConverter: ExpressionConverter {
                 case .binaryOperation, .mathFunction, .unaryOperation:
                     convertedTokenArray.append(token)
                 default:
-                    throw ConverterError.wrongBrackets
+                    throw ConverterError.inconsistentBrackets
                 }
                 
             }
