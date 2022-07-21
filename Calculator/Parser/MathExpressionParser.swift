@@ -7,8 +7,15 @@
 
 // MARK - MathExpressionParser
 
-final class MathExpressionParser: ExpressionParser {
+final class MathExpressionParser {
     
+}
+
+// MARK - ExpressionParser
+
+extension MathExpressionParser: ExpressionParser {
+    
+    /// Parse recieved string to sequence of math tokens
     func parse(expression: String) throws -> [MathExpressionToken] {
         
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
@@ -27,10 +34,8 @@ final class MathExpressionParser: ExpressionParser {
                 } else if !tokenString.isEmpty {
                     throw ParseError.unknownFunction(function: tokenString)
                 }
-                if UnaryOperation(rawValue: symbol) != nil && tokenArray.last == .bracket(.open) {
-                    if let unaryOperation = UnaryOperation(rawValue: symbol) {
-                        tokenArray.append(.unaryOperation(unaryOperation))
-                    }
+                if let unaryOperation = symbol.isUnaryOperation(previousToken: tokenArray.last ?? nil) {
+                    tokenArray.append(.unaryOperation(unaryOperation))
                 } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
                     tokenArray.append(.binaryOperation(binaryOperation))
                 } else if let bracket = Bracket(rawValue: symbol) {

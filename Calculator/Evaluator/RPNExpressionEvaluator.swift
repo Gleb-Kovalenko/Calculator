@@ -9,8 +9,15 @@ import Foundation
 
 // MARK - RPNExpressionEvaluator
 
-final class RPNExpressionEvaluator: ExpressionEvaluator {
+final class RPNExpressionEvaluator {
     
+}
+
+// MARK - ExpressionEvaluator
+
+extension RPNExpressionEvaluator: ExpressionEvaluator {
+    
+    /// Calculate recieved RPN expression
     func evaluate(expression: [MathExpressionToken]) throws -> Double {
         
         var expression = expression
@@ -41,7 +48,11 @@ final class RPNExpressionEvaluator: ExpressionEvaluator {
                         case .power:
                             stack.push(.number(pow(firstNumber, secondNumber)))
                         }
+                    } else {
+                        throw EvaluatorError.invalidSyntaxis
                     }
+                } else {
+                    throw EvaluatorError.invalidSyntaxis
                 }
             case .mathFunction(let function):
                 if case .number(let number) = stack.pop() {

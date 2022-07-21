@@ -9,8 +9,15 @@ import Foundation
 
 // MARK - RPNExpressionConverter
 
-final class RPNExpressionConverter: ExpressionConverter {
+final class RPNExpressionConverter {
     
+}
+
+// MARK - ExpressionConverter
+
+extension RPNExpressionConverter: ExpressionConverter {
+    
+    /// Convert recieved sequence in RPN expression
     func convert(expression: [MathExpressionToken]) throws -> [MathExpressionToken] {
         
         var expression = expression
