@@ -5,10 +5,17 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - MathExpressionParser
+// MARK: - MathExpressionParser
 
-final class MathExpressionParser: ExpressionParser {
+final class MathExpressionParser {
     
+}
+
+// MARK: - ExpressionParser
+
+extension MathExpressionParser: ExpressionParser {
+    
+    /// Parse recieved string to sequence of math tokens
     func parse(expression: String) throws -> [MathExpressionToken] {
         
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
@@ -27,10 +34,10 @@ final class MathExpressionParser: ExpressionParser {
                 } else if !tokenString.isEmpty {
                     throw ParseError.unknownFunction(function: tokenString)
                 }
-                if UnaryOperation(rawValue: symbol) != nil && tokenArray.last == .bracket(.open) {
-                    if let unaryOperation = UnaryOperation(rawValue: symbol) {
-                        tokenArray.append(.unaryOperation(unaryOperation))
-                    }
+                if let prefixUnaryOperation = symbol.isPrefixUnaryOperation(previousToken: tokenArray.last) {
+                    tokenArray.append(.unaryOperation(.prefixUnaryOperation(prefixUnaryOperation)))
+                } else if let postfixUnaryOperation = symbol.isPostfixUnaryOperation(previousToken: tokenArray.last) {
+                    tokenArray.append(.unaryOperation(.postfixUnaryOperation(postfixUnaryOperation)))
                 } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
                     tokenArray.append(.binaryOperation(binaryOperation))
                 } else if let bracket = Bracket(rawValue: symbol) {

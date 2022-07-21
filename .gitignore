@@ -97,6 +97,7 @@ iOSInjectionProject/
 .DS_Store?
 *Carthage/.DS_Store
 
-IDEWorkspaceChecks.plist
-xcschememanagement.plist
-UserInterfaceState.xcuserstate
+iOSInjectionProject/
+xcuserdata/
+Calculator.xcodeproj/project.pbxproj
+Calculator.xcodeproj/project.xcworkspace

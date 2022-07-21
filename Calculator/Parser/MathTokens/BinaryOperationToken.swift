@@ -5,7 +5,9 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - BinaryOperation
+import Foundation
+
+// MARK: - BinaryOperation
 
 enum BinaryOperation: Character, Equatable {
     case addition = "+"
@@ -19,6 +21,21 @@ enum BinaryOperation: Character, Equatable {
         case .addition, .substraction: return 0
         case .multiply, .division: return 1
         case .power: return 2
+        }
+    }
+    
+    func doOperation(firstNumber: Double, secondNumber: Double) -> Double {
+        switch self {
+        case .addition:
+            return firstNumber + secondNumber
+        case .substraction:
+            return firstNumber - secondNumber
+        case .division:
+            return firstNumber / secondNumber
+        case .multiply:
+            return firstNumber * secondNumber
+        case .power:
+            return pow(firstNumber, secondNumber)
         }
     }
 }

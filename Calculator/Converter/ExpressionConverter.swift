@@ -5,14 +5,14 @@
 //  Created by Gleb Kovalenko on 18.07.2022.
 //
 
-// MARK - ExpressionConverter
+// MARK: - ExpressionConverter
 
 protocol ExpressionConverter {
     
     associatedtype Token: Equatable
     
-    /// Convert received sequence to new sequence
-    /// - Parameter expression: sequence to convert
+    /// Convert received sequence to a new sequence
+    /// - Parameter expression: a sequence to convert
     /// - Throws: сonverter errors, such as inconsistent brackets
     /// - Returns: new sequence
     /// Example: Parsed string to RPN string

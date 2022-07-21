@@ -5,8 +5,9 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - UnaryOperation
+// MARK: - UnaryOperation
 
-enum UnaryOperation: Character, Equatable {
-    case negative = "-"
+enum UnaryOperation: Equatable {
+    case prefixUnaryOperation(PrefixUnaryOperation)
+    case postfixUnaryOperation(PostfixUnaryOperation)
 }

@@ -7,10 +7,17 @@
 
 import Foundation
 
-// MARK - RPNExpressionConverter
+// MARK: - RPNExpressionConverter
 
-final class RPNExpressionConverter: ExpressionConverter {
+final class RPNExpressionConverter {
     
+}
+
+// MARK: - ExpressionConverter
+
+extension RPNExpressionConverter: ExpressionConverter {
+    
+    /// Convert recieved sequence in RPN expression
     func convert(expression: [MathExpressionToken]) throws -> [MathExpressionToken] {
         
         var expression = expression
@@ -22,8 +29,15 @@ final class RPNExpressionConverter: ExpressionConverter {
             switch currentToken {
             case .number :
                 convertedTokenArray.append(currentToken)
-            case .mathFunction, .unaryOperation, .bracket(.open):
+            case .mathFunction, .bracket(.open):
                 stack.push(currentToken)
+            case  .unaryOperation(let operation):
+                switch operation {
+                case .prefixUnaryOperation:
+                    stack.push(currentToken)
+                case .postfixUnaryOperation:
+                    convertedTokenArray.append(currentToken)
+                }
             case .bracket(.close):
                 while stack.peek() != .bracket(.open) {
                     if let token = stack.pop() {
