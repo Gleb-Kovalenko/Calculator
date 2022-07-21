@@ -7,6 +7,7 @@
 
 // MARK - UnaryOperation
 
-enum UnaryOperation: Character, Equatable {
-    case negative = "-"
+enum UnaryOperation: Equatable {
+    case prefixUnaryOperation(PrefixUnaryOperation)
+    case postfixUnaryOperation(PostfixUnaryOperation)
 }

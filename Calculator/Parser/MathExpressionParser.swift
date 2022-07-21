@@ -34,8 +34,10 @@ extension MathExpressionParser: ExpressionParser {
                 } else if !tokenString.isEmpty {
                     throw ParseError.unknownFunction(function: tokenString)
                 }
-                if let unaryOperation = symbol.isUnaryOperation(previousToken: tokenArray.last ?? nil) {
-                    tokenArray.append(.unaryOperation(unaryOperation))
+                if let prefixUnaryOperation = symbol.isPrefixUnaryOperation(previousToken: tokenArray.last ?? nil) {
+                    tokenArray.append(.unaryOperation(.prefixUnaryOperation(prefixUnaryOperation)))
+                } else if let postfixUnaryOperation = symbol.isPostfixUnaryOperation(previousToken: tokenArray.last ?? nil) {
+                    tokenArray.append(.unaryOperation(.postfixUnaryOperation(postfixUnaryOperation)))
                 } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
                     tokenArray.append(.binaryOperation(binaryOperation))
                 } else if let bracket = Bracket(rawValue: symbol) {

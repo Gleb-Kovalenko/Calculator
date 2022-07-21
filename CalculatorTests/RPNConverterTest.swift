@@ -16,11 +16,11 @@ class RPNConverterTest: XCTestCase {
         let testDictionary: [String: [MathExpressionToken]] = [
             "sin(cos(5)) + (1 + (-5) - 2.6)*3.9": [
                 .number(5.0),
-                .mathFunction(.cos),
-                .mathFunction(.sin),
+                .mathFunction(.cosinus),
+                .mathFunction(.sinus),
                 .number(1.0),
                 .number(5.0),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .binaryOperation(.addition),
                 .number(2.6),
                 .binaryOperation(.substraction),
@@ -31,7 +31,7 @@ class RPNConverterTest: XCTestCase {
             "5 + (-3) / 2": [
                 .number(5.0),
                 .number(3.0),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(2.0),
                 .binaryOperation(.division),
                 .binaryOperation(.addition)
@@ -43,16 +43,16 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.power),
                 .binaryOperation(.multiply),
                 .number(3.0),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .binaryOperation(.substraction),
-                .mathFunction(.cos),
-                .mathFunction(.sin),
-                .mathFunction(.cos),
-                .mathFunction(.sin)
+                .mathFunction(.cosinus),
+                .mathFunction(.sinus),
+                .mathFunction(.cosinus),
+                .mathFunction(.sinus)
             ],
             "(-5) + 4.21 * 0.941 / 2.3151": [
                 .number(5.0),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(4.21),
                 .number(0.941),
                 .binaryOperation(.multiply),
@@ -62,8 +62,8 @@ class RPNConverterTest: XCTestCase {
             ],
             "sin((-5)) + 5 * 2.33 / 5.12 ^ 3.32": [
                 .number(5.0),
-                .unaryOperation(.negative),
-                .mathFunction(.sin),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
+                .mathFunction(.sinus),
                 .number(5.0),
                 .number(2.33),
                 .binaryOperation(.multiply),
@@ -76,9 +76,9 @@ class RPNConverterTest: XCTestCase {
             "9.44 * (sin(5.21) / cos(3.21)) / 5 ^ 2.3": [
                 .number(9.44),
                 .number(5.21),
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .number(3.21),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .binaryOperation(.division),
                 .binaryOperation(.multiply),
                 .number(5.0),
@@ -90,7 +90,7 @@ class RPNConverterTest: XCTestCase {
                 .number(3.0),
                 .mathFunction(.tg),
                 .number(5.21),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(8.4),
                 .binaryOperation(.multiply),
                 .number(9.12),
@@ -107,8 +107,8 @@ class RPNConverterTest: XCTestCase {
                 .number(7.6),
                 .binaryOperation(.division),
                 .number(1.2),
-                .unaryOperation(.negative),
-                .mathFunction(.cos),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
+                .mathFunction(.cosinus),
                 .binaryOperation(.multiply),
                 .binaryOperation(.substraction)
             ],
@@ -118,24 +118,42 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.addition),
                 .number(1.2),
                 .number(4.1),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .binaryOperation(.division),
                 .number(9.1),
-                .unaryOperation(.negative),
-                .mathFunction(.cos),
-                .mathFunction(.sin),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
+                .mathFunction(.cosinus),
+                .mathFunction(.sinus),
                 .binaryOperation(.multiply),
                 .binaryOperation(.substraction)
             ],
             "cos(sin(tg(9.152))) * 1.23 / 4.3": [
                 .number(9.152),
                 .mathFunction(.tg),
-                .mathFunction(.sin),
-                .mathFunction(.cos),
+                .mathFunction(.sinus),
+                .mathFunction(.cosinus),
                 .number(1.23),
                 .binaryOperation(.multiply),
                 .number(4.3),
                 .binaryOperation(.division)
+            ],
+            "(5 * 4 / 2)!": [
+                .number(5.0),
+                .number(4.0),
+                .binaryOperation(.multiply),
+                .number(2.0),
+                .binaryOperation(.division),
+                .unaryOperation(.postfixUnaryOperation(.factorial))
+            ],
+            "(2! * 2 / 2)!!": [
+                .number(2.0),
+                .unaryOperation(.postfixUnaryOperation(.factorial)),
+                .number(2.0),
+                .binaryOperation(.multiply),
+                .number(2.0),
+                .binaryOperation(.division),
+                .unaryOperation(.postfixUnaryOperation(.factorial)),
+                .unaryOperation(.postfixUnaryOperation(.factorial))
             ]
         ]
         

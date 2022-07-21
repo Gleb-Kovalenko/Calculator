@@ -14,9 +14,9 @@ class ParserTest: XCTestCase {
     func testSomething() throws {
         let testDictionary: [String: [MathExpressionToken]] = [
             "sin(cos(5)) + (1 + -5 - 2.6)*3.9": [
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
                 .number(5.0),
                 .bracket(.close),
@@ -25,7 +25,7 @@ class ParserTest: XCTestCase {
                 .bracket(.open),
                 .number(1.0),
                 .binaryOperation(.addition),
-                .unaryOperation(.negative), 
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(5.0),
                 .binaryOperation(.substraction),
                 .number(2.6),
@@ -36,19 +36,19 @@ class ParserTest: XCTestCase {
             "5 + -3 / 2" : [
                 .number(5.0),
                 .binaryOperation(.addition),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(3.0),
                 .binaryOperation(.division),
                 .number(2.0)
             ],
             "sin(cos(sin(cos(5 * 3 ^ 3 - -3))))" : [
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
                 .number(5.0),
                 .binaryOperation(.multiply),
@@ -56,7 +56,7 @@ class ParserTest: XCTestCase {
                 .binaryOperation(.power),
                 .number(3.0),
                 .binaryOperation(.substraction),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(3.0),
                 .bracket(.close),
                 .bracket(.close),
@@ -64,7 +64,7 @@ class ParserTest: XCTestCase {
                 .bracket(.close)
             ],
             "-5 + 4.21 * 0.941 / 2.3151": [
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(5.0),
                 .binaryOperation(.addition),
                 .number(4.21),
@@ -74,9 +74,9 @@ class ParserTest: XCTestCase {
                 .number(2.3151)
             ],
             "sin(-5) + 5 * 2.33 / 5.12 ^ 3.32": [
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(5.0),
                 .bracket(.close),
                 .binaryOperation(.addition),
@@ -92,12 +92,12 @@ class ParserTest: XCTestCase {
                 .number(9.44),
                 .binaryOperation(.multiply),
                 .bracket(.open),
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
                 .number(5.21),
                 .bracket(.close),
                 .binaryOperation(.division),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
                 .number(3.21),
                 .bracket(.close),
@@ -113,7 +113,7 @@ class ParserTest: XCTestCase {
                 .number(3.0),
                 .bracket(.close),
                 .binaryOperation(.substraction),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(5.21),
                 .binaryOperation(.multiply),
                 .number(8.4),
@@ -131,9 +131,9 @@ class ParserTest: XCTestCase {
                 .binaryOperation(.division),
                 .number(7.6),
                 .binaryOperation(.multiply),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(1.2),
                 .bracket(.close)
             ],
@@ -144,24 +144,24 @@ class ParserTest: XCTestCase {
                 .binaryOperation(.substraction),
                 .number(1.2),
                 .binaryOperation(.division),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
                 .number(4.1),
                 .bracket(.close),
                 .binaryOperation(.multiply),
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
-                .unaryOperation(.negative),
+                .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(9.1),
                 .bracket(.close),
                 .bracket(.close)
             ],
             "cos(sin(tg(9.152))) * 1.23 / 4.3": [
-                .mathFunction(.cos),
+                .mathFunction(.cosinus),
                 .bracket(.open),
-                .mathFunction(.sin),
+                .mathFunction(.sinus),
                 .bracket(.open),
                 .mathFunction(.tg),
                 .bracket(.open),
@@ -173,11 +173,32 @@ class ParserTest: XCTestCase {
                 .number(1.23),
                 .binaryOperation(.division),
                 .number(4.3)
+            ],
+            "(5 * 4 / 2)!": [
+                .bracket(.open),
+                .number(5.0),
+                .binaryOperation(.multiply),
+                .number(4.0),
+                .binaryOperation(.division),
+                .number(2.0),
+                .bracket(.close),
+                .unaryOperation(.postfixUnaryOperation(.factorial))
+            ],
+            "(2! * 2 / 2)!!": [
+                .bracket(.open),
+                .number(2.0),
+                .unaryOperation(.postfixUnaryOperation(.factorial)),
+                .binaryOperation(.multiply),
+                .number(2.0),
+                .binaryOperation(.division),
+                .number(2.0),
+                .bracket(.close),
+                .unaryOperation(.postfixUnaryOperation(.factorial)),
+                .unaryOperation(.postfixUnaryOperation(.factorial))
             ]
         ]
         for (expression, expectedResult) in testDictionary {
             let parserResult = try mathParser.parse(expression: expression)
-            print("\n\n\n\(parserResult)")
             XCTAssertEqual(parserResult.count, expectedResult.count)
             for (parserToken, expectedToken) in zip(parserResult, expectedResult) {
                 XCTAssertEqual(parserToken, expectedToken)

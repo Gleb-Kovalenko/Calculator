@@ -22,32 +22,23 @@ extension RPNExpressionEvaluator: ExpressionEvaluator {
         
         var expression = expression
         var stack = Stack<MathExpressionToken>()
-        
         while !expression.isEmpty {
             let currentToken = expression.removeFirst()
             switch currentToken {
-            case .number(let number):
-                switch expression.first {
-                case .unaryOperation(.negative):
-                    stack.push(.number(-number))
-                default:
-                    stack.push(currentToken)
+            case .number:
+                stack.push(currentToken)
+            case .unaryOperation(.prefixUnaryOperation(let prefixOperation)):
+                if case .number(let firstNumber) = stack.pop() {
+                    let result = prefixOperation.doOperation(number: firstNumber)
+                    stack.push(.number(result))
+                } else {
+                    throw EvaluatorError.invalidSyntaxis
                 }
             case .binaryOperation(let operation):
                 if case .number(let secondNumber) = stack.pop() {
                     if case .number(let firstNumber) = stack.pop() {
-                        switch operation {
-                        case .addition:
-                            stack.push(.number(firstNumber + secondNumber))
-                        case .substraction:
-                            stack.push(.number(firstNumber - secondNumber))
-                        case .division:
-                            stack.push(.number(firstNumber / secondNumber))
-                        case .multiply:
-                            stack.push(.number(firstNumber * secondNumber))
-                        case .power:
-                            stack.push(.number(pow(firstNumber, secondNumber)))
-                        }
+                        let result = operation.doOperation(firstNumber: firstNumber, secondNumber: secondNumber)
+                        stack.push(.number(result))
                     } else {
                         throw EvaluatorError.invalidSyntaxis
                     }
@@ -56,17 +47,20 @@ extension RPNExpressionEvaluator: ExpressionEvaluator {
                 }
             case .mathFunction(let function):
                 if case .number(let number) = stack.pop() {
-                    switch function {
-                    case .sin:
-                        stack.push(.number(sin(number)))
-                    case .cos:
-                        stack.push(.number(cos(number)))
-                    case .tg:
-                        stack.push(.number(tan(number)))
-                    }
+                    let result = function.doFunction(number: number)
+                    stack.push(.number(result))
                 }
-            case .unaryOperation:
-                continue
+            case .unaryOperation(.postfixUnaryOperation(let operation)):
+                    if case .number(let firstNumber) = stack.pop() {
+                        do {
+                            let result = try operation.doOperation(number: firstNumber)
+                            stack.push(.number(result))
+                        } catch {
+                            throw error
+                        }
+                    } else {
+                        throw EvaluatorError.invalidSyntaxis
+                    }
             default:
                 throw EvaluatorError.invalidSyntaxis
             }

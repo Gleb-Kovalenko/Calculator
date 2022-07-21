@@ -5,10 +5,23 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
+import Foundation
+
 // MARK - MathFunction
 
 enum MathFunction: String, Equatable {
-    case sin
-    case cos
+    case sinus = "sin"
+    case cosinus = "cos"
     case tg
+    
+    func doFunction(number: Double) -> Double {
+        switch self {
+        case .sinus:
+            return sin(number)
+        case .cosinus:
+            return cos(number)
+        case .tg:
+            return tan(number)
+        }
+    }
 }

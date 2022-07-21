@@ -19,6 +19,9 @@
 		5420AE3B28888DC2002E07B8 /* CalculatorImplemantation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE3A28888DC2002E07B8 /* CalculatorImplemantation.swift */; };
 		5420AE3D28888DED002E07B8 /* RPNConverterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE3C28888DED002E07B8 /* RPNConverterTest.swift */; };
 		5420AE3F28888EC2002E07B8 /* CalculatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE3E28888EC2002E07B8 /* CalculatorTest.swift */; };
+		5420AE412888EDB4002E07B8 /* PrefixUnaryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE402888EDB4002E07B8 /* PrefixUnaryOperation.swift */; };
+		5420AE432888EE05002E07B8 /* PostfixUnaryOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE422888EE05002E07B8 /* PostfixUnaryOperation.swift */; };
+		5420AE452888F80F002E07B8 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5420AE442888F80F002E07B8 /* Double.swift */; };
 		5476E99E2884478600B0AE4F /* ExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476E99D2884478600B0AE4F /* ExpressionParser.swift */; };
 		5476E9A1288447C400B0AE4F /* MathExpressionParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476E9A0288447C400B0AE4F /* MathExpressionParser.swift */; };
 		5476E9A32884483B00B0AE4F /* BinaryOperationToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5476E9A22884483B00B0AE4F /* BinaryOperationToken.swift */; };
@@ -67,6 +70,9 @@
 		5420AE3A28888DC2002E07B8 /* CalculatorImplemantation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorImplemantation.swift; sourceTree = "<group>"; };
 		5420AE3C28888DED002E07B8 /* RPNConverterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RPNConverterTest.swift; sourceTree = "<group>"; };
 		5420AE3E28888EC2002E07B8 /* CalculatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorTest.swift; sourceTree = "<group>"; };
+		5420AE402888EDB4002E07B8 /* PrefixUnaryOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixUnaryOperation.swift; sourceTree = "<group>"; };
+		5420AE422888EE05002E07B8 /* PostfixUnaryOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostfixUnaryOperation.swift; sourceTree = "<group>"; };
+		5420AE442888F80F002E07B8 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
 		5476E99D2884478600B0AE4F /* ExpressionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionParser.swift; sourceTree = "<group>"; };
 		5476E9A0288447C400B0AE4F /* MathExpressionParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathExpressionParser.swift; sourceTree = "<group>"; };
 		5476E9A22884483B00B0AE4F /* BinaryOperationToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryOperationToken.swift; sourceTree = "<group>"; };
@@ -179,6 +185,8 @@
 				5476E9A62884489A00B0AE4F /* MathFunctionToken.swift */,
 				5476E9A8288448C600B0AE4F /* BracketToken.swift */,
 				5476E9AA288448FA00B0AE4F /* MathExpressionToken.swift */,
+				5420AE402888EDB4002E07B8 /* PrefixUnaryOperation.swift */,
+				5420AE422888EE05002E07B8 /* PostfixUnaryOperation.swift */,
 			);
 			path = MathTokens;
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				5476E9B428844EED00B0AE4F /* Character.swift */,
+				5420AE442888F80F002E07B8 /* Double.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -396,17 +405,20 @@
 				541055772885E32B004528A2 /* ConverterError.swift in Sources */,
 				5410556A2885D597004528A2 /* Stackable.swift in Sources */,
 				5410556C2885D5BD004528A2 /* Stack.swift in Sources */,
+				5420AE432888EE05002E07B8 /* PostfixUnaryOperation.swift in Sources */,
 				5420AE3B28888DC2002E07B8 /* CalculatorImplemantation.swift in Sources */,
 				5476E9A52884486C00B0AE4F /* UnaryOperationToken.swift in Sources */,
 				5410557D2885EA69004528A2 /* RPNExpressionEvaluator.swift in Sources */,
 				541055742885E003004528A2 /* RPNExpressionConverter.swift in Sources */,
 				5476E9AB288448FA00B0AE4F /* MathExpressionToken.swift in Sources */,
+				5420AE452888F80F002E07B8 /* Double.swift in Sources */,
 				5476E9A1288447C400B0AE4F /* MathExpressionParser.swift in Sources */,
 				5410557B2885EA1F004528A2 /* ExpressionEvaluator.swift in Sources */,
 				5476E9B528844EED00B0AE4F /* Character.swift in Sources */,
 				5476E99E2884478600B0AE4F /* ExpressionParser.swift in Sources */,
 				541055802885EBAE004528A2 /* EvaluatorError.swift in Sources */,
 				5420AE3928888DA1002E07B8 /* Calculator.swift in Sources */,
+				5420AE412888EDB4002E07B8 /* PrefixUnaryOperation.swift in Sources */,
 				5476E9A72884489A00B0AE4F /* MathFunctionToken.swift in Sources */,
 				54AC255A2880493000B53853 /* ContentView.swift in Sources */,
 				54AC25582880493000B53853 /* CalculatorApp.swift in Sources */,

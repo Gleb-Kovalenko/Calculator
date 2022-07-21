@@ -11,6 +11,7 @@ import Foundation
 
 enum EvaluatorError: Error {
     case invalidSyntaxis
+    case noFactorial(number: Double)
 }
 
 // MARK - LocalizedError
@@ -20,6 +21,8 @@ extension EvaluatorError: LocalizedError {
         switch self {
         case .invalidSyntaxis:
             return "Invalid syntaxis error"
+        case .noFactorial(let number):
+            return "Factorial of \(number) is not defined"
         }
     }
 }
