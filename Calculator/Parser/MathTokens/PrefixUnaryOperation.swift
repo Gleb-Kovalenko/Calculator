@@ -5,7 +5,7 @@
 //  Created by Gleb Kovalenko on 21.07.2022.
 //
 
-// MARK - PrefixUnaryOperation
+// MARK: - PrefixUnaryOperation
 
 enum PrefixUnaryOperation: Character, Equatable {
     case negative = "-"

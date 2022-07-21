@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK - RPNExpressionConverter
+// MARK: - RPNExpressionConverter
 
 final class RPNExpressionConverter {
     
 }
 
-// MARK - ExpressionConverter
+// MARK: - ExpressionConverter
 
 extension RPNExpressionConverter: ExpressionConverter {
     

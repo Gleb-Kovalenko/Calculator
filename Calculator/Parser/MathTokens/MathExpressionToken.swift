@@ -5,7 +5,7 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - MathExpressionToken
+// MARK: - MathExpressionToken
 
 enum MathExpressionToken: Equatable {
     case number(Double)

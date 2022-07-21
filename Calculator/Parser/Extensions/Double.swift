@@ -7,15 +7,16 @@
 
 import Foundation
 
-// MARK - Double
+// MARK: - Double
 
 extension Double {
+    
     var isInt: Bool {
         return floor(self) == self
     }
     
     func factorial() -> Double? {
-        if self.isInt && self >= 0 {
+        if self.isInt && self >= 0 && self <= 14 {
             if self == 0.0 || self == 1.0 {
                 return 1
             }

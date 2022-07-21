@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK - ConverterError
+// MARK: - ConverterError
 
 enum ConverterError: Error {
     case inconsistentBrackets
 }
 
-// MARK - LocalizedError
+// MARK: - LocalizedError
 
 extension ConverterError: LocalizedError {
     public var errorDescription: String? {

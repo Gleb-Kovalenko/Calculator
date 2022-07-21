@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK - RPNExpressionEvaluator
+// MARK: - RPNExpressionEvaluator
 
 final class RPNExpressionEvaluator {
     
 }
 
-// MARK - ExpressionEvaluator
+// MARK: - ExpressionEvaluator
 
 extension RPNExpressionEvaluator: ExpressionEvaluator {
     
@@ -35,13 +35,9 @@ extension RPNExpressionEvaluator: ExpressionEvaluator {
                     throw EvaluatorError.invalidSyntaxis
                 }
             case .binaryOperation(let operation):
-                if case .number(let secondNumber) = stack.pop() {
-                    if case .number(let firstNumber) = stack.pop() {
-                        let result = operation.doOperation(firstNumber: firstNumber, secondNumber: secondNumber)
-                        stack.push(.number(result))
-                    } else {
-                        throw EvaluatorError.invalidSyntaxis
-                    }
+                if case .number(let secondNumber) = stack.pop(), case .number(let firstNumber) = stack.pop() {
+                    let result = operation.doOperation(firstNumber: firstNumber, secondNumber: secondNumber)
+                    stack.push(.number(result))
                 } else {
                     throw EvaluatorError.invalidSyntaxis
                 }

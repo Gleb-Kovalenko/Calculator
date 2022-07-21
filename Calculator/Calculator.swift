@@ -7,13 +7,13 @@
 
 import Foundation
 
-// MARK - Calculator
+// MARK: - Calculator
 
 protocol Calculator {
     
     /// Calculate expression
     /// - Parameter expression: expression to calculate
-    /// - Throws: evaluator errors, such as invalid syntaxis, if expression can't be evaluated
+    /// - Throws: evaluator errors, such as invalid syntaxis, or when expression can't be evaluated
     /// - Returns: value as Double
     func calculate(expression: String) throws -> Double
 }

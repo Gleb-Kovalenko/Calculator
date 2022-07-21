@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK - ParseError
+// MARK: - ParseError
 
 enum ParseError: Error {
     case oneMoreDot
@@ -15,7 +15,7 @@ enum ParseError: Error {
     case unknownOperation(operation: Character)
 }
 
-// MARK - LocalizedError
+// MARK: - LocalizedError
 
 extension ParseError: LocalizedError {
     public var errorDescription: String? {

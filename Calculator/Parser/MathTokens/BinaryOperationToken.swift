@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK - BinaryOperation
+// MARK: - BinaryOperation
 
 enum BinaryOperation: Character, Equatable {
     case addition = "+"

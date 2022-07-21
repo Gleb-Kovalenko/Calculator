@@ -7,14 +7,14 @@
 
 import Foundation
 
-// MARK - EvaluatorError
+// MARK: - EvaluatorError
 
 enum EvaluatorError: Error {
     case invalidSyntaxis
     case noFactorial(number: Double)
 }
 
-// MARK - LocalizedError
+// MARK: - LocalizedError
 
 extension EvaluatorError: LocalizedError {
     public var errorDescription: String? {

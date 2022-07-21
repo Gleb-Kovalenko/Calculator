@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK - MathFunction
+// MARK: - MathFunction
 
 enum MathFunction: String, Equatable {
     case sinus = "sin"

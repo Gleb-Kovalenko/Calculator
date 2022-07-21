@@ -5,13 +5,13 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - MathExpressionParser
+// MARK: - MathExpressionParser
 
 final class MathExpressionParser {
     
 }
 
-// MARK - ExpressionParser
+// MARK: - ExpressionParser
 
 extension MathExpressionParser: ExpressionParser {
     
@@ -34,9 +34,9 @@ extension MathExpressionParser: ExpressionParser {
                 } else if !tokenString.isEmpty {
                     throw ParseError.unknownFunction(function: tokenString)
                 }
-                if let prefixUnaryOperation = symbol.isPrefixUnaryOperation(previousToken: tokenArray.last ?? nil) {
+                if let prefixUnaryOperation = symbol.isPrefixUnaryOperation(previousToken: tokenArray.last) {
                     tokenArray.append(.unaryOperation(.prefixUnaryOperation(prefixUnaryOperation)))
-                } else if let postfixUnaryOperation = symbol.isPostfixUnaryOperation(previousToken: tokenArray.last ?? nil) {
+                } else if let postfixUnaryOperation = symbol.isPostfixUnaryOperation(previousToken: tokenArray.last) {
                     tokenArray.append(.unaryOperation(.postfixUnaryOperation(postfixUnaryOperation)))
                 } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
                     tokenArray.append(.binaryOperation(binaryOperation))

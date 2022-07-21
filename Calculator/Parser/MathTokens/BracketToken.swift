@@ -5,7 +5,7 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - Bracket
+// MARK: - Bracket
 
 enum Bracket: Character, Equatable {
     case open = "("

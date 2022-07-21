@@ -5,14 +5,15 @@
 //  Created by Gleb Kovalenko on 17.07.2022.
 //
 
-// MARK - Character
+// MARK: - Character
 
 extension Character {
+    
     var isDot: Bool {
         self == Character(".")
     }
     
-    /// Checked if it is a prefix unary operation character, and if so, returns prefix unary operation token, otherwise nill
+    /// Check if it is a prefix unary operation character and returns prefix unary operation token if it's exists
     ///
     /// A character is a prefix unary operation when it appears either first in an expression
     /// or not before another number or close bracket
@@ -30,7 +31,7 @@ extension Character {
         return nil
     }
     
-    /// Checked if it is a postfix unary operation character, and if so, returns postfix unary operation token, otherwise nill
+    /// Check if it is a postfix unary operation character and returns postfix unary operation token if it's exists
     ///
     /// A character is a postfix unary operation when it before another number or close bracket
     func isPostfixUnaryOperation(previousToken: MathExpressionToken?) -> PostfixUnaryOperation? {

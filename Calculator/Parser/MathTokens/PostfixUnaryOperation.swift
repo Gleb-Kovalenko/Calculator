@@ -5,7 +5,7 @@
 //  Created by Gleb Kovalenko on 21.07.2022.
 //
 
-// MARK - PostfixUnaryOperation
+// MARK: - PostfixUnaryOperation
 
 enum PostfixUnaryOperation: Character, Equatable {
     case factorial = "!"
