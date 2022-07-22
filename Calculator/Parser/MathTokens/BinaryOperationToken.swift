@@ -12,8 +12,8 @@ import Foundation
 enum BinaryOperation: Character, Equatable {
     case addition = "+"
     case substraction = "-"
-    case multiply = "*"
-    case division = "/"
+    case multiply = "×"
+    case division = "÷"
     case power = "^"
     
     var priority: Int {
