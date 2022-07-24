@@ -8,7 +8,11 @@ struct ContentView: View {
     @State var calculatorDisplay = ""
     
     let fontSizeButton = UIScreen.main.bounds.width * 0.1
-    let calculator = CalculatorImplemantation(parser: MathExpressionParser(), converter: RPNExpressionConverter(), evaluator: RPNExpressionEvaluator())
+    let calculator = CalculatorImplemantation(
+        parser: MathExpressionParser(),
+        converter: RPNExpressionConverter(),
+        evaluator: RPNExpressionEvaluator()
+    )
     let buttons: [[CalculatorButton]] = [
             [.clearAll, .openBracket, .closeBracket, .percent, .division],
             [.sinus, .digit("7"), .digit("8"), .digit("9"), .multiply],

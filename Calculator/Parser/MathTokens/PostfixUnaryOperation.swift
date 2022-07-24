@@ -8,9 +8,10 @@
 // MARK: - PostfixUnaryOperation
 
 enum PostfixUnaryOperation: Character, Equatable {
+    
     case factorial = "!"
     
-    func doOperation(number: Double) throws -> Double {
+    func perform(to number: Double) throws -> Double {
         switch self {
         case .factorial:
             if let factorial = number.factorial() {

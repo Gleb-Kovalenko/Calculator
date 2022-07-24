@@ -7,11 +7,13 @@
 import XCTest
 @testable import Calculator
 
-class ParserTest: XCTestCase {
+// MARK: - XCTestCase
+
+final class ParserTest: XCTestCase {
     
     private let mathParser = MathExpressionParser()
 
-    func testSomething() throws {
+    func testParser() throws {
         let testDictionary: [String: [MathExpressionToken]] = [
             "sin(cos(5)) + (1 + -5 - 2.6)×3.9": [
                 .mathFunction(.sinus),

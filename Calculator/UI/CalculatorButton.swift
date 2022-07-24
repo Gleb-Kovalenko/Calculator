@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - CalculatorButton
 
 enum CalculatorButton {
+    
     case digit(Character)
     case sinus, cosinus, factorial, openBracket, closeBracket, addition, substraction,
         division, multiply, power, equal, point, clearAll, clearLast, percent

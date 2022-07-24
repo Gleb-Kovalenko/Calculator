@@ -17,7 +17,6 @@ final class RPNExpressionConverter {
 
 extension RPNExpressionConverter: ExpressionConverter {
     
-    /// Convert recieved sequence in RPN expression
     func convert(expression: [MathExpressionToken]) throws -> [MathExpressionToken] {
         
         var expression = expression
@@ -67,15 +66,12 @@ extension RPNExpressionConverter: ExpressionConverter {
                 }
             }
         }
-        while !stack.isEmpty {
-            if let token = stack.pop() {
-                switch token {
-                case .binaryOperation, .mathFunction, .unaryOperation:
-                    convertedTokenArray.append(token)
-                default:
-                    throw ConverterError.inconsistentBrackets
-                }
-                
+        while let token = stack.pop() {
+            switch token {
+            case .binaryOperation, .mathFunction, .unaryOperation:
+                convertedTokenArray.append(token)
+            default:
+                throw ConverterError.inconsistentBrackets
             }
         }
         return convertedTokenArray

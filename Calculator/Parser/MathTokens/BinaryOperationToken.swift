@@ -10,6 +10,7 @@ import Foundation
 // MARK: - BinaryOperation
 
 enum BinaryOperation: Character, Equatable {
+    
     case addition = "+"
     case substraction = "-"
     case multiply = "×"
@@ -18,13 +19,16 @@ enum BinaryOperation: Character, Equatable {
     
     var priority: Int {
         switch self {
-        case .addition, .substraction: return 0
-        case .multiply, .division: return 1
-        case .power: return 2
+        case .addition, .substraction:
+            return 0
+        case .multiply, .division:
+            return 1
+        case .power:
+            return 2
         }
     }
     
-    func doOperation(firstNumber: Double, secondNumber: Double) -> Double {
+    func perform(to firstNumber: Double, and secondNumber: Double) -> Double {
         switch self {
         case .addition:
             return firstNumber + secondNumber

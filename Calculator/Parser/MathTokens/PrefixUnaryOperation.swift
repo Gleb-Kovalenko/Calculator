@@ -8,9 +8,10 @@
 // MARK: - PrefixUnaryOperation
 
 enum PrefixUnaryOperation: Character, Equatable {
+    
     case negative = "-"
     
-    func doOperation(number: Double) -> Double {
+    func perform(to number: Double) -> Double {
         switch self {
         case .negative:
             return -number

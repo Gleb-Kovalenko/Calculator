@@ -7,12 +7,14 @@
 import XCTest
 @testable import Calculator
 
-class RPNConverterTest: XCTestCase {
+// MARK: - XCTestCase
+
+final class RPNConverterTest: XCTestCase {
     
     private let mathParser = MathExpressionParser()
     private let mathConverter = RPNExpressionConverter()
 
-    func testSomething() throws {
+    func testConverter() throws {
         let testDictionary: [String: [MathExpressionToken]] = [
             "sin(cos(5)) + (1 + (-5) - 2.6)×3.9": [
                 .number(5.0),

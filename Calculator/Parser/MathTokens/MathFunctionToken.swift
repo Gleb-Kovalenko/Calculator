@@ -10,11 +10,12 @@ import Foundation
 // MARK: - MathFunction
 
 enum MathFunction: String, Equatable {
+    
     case sinus = "sin"
     case cosinus = "cos"
     case tg
     
-    func doFunction(number: Double) -> Double {
+    func perform(to number: Double) -> Double {
         switch self {
         case .sinus:
             return sin(number)

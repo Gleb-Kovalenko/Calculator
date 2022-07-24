@@ -13,7 +13,7 @@ protocol ExpressionEvaluator {
     
     /// Calculate expression
     /// - Parameter expression: expression to calculate
-    /// - Throws: evaluator errors, such as invalid syntaxis, if expression can't be evaluated
-    /// - Returns: value as Double
+    /// - Throws: evaluator errors, such as invalid syntaxis, or when expression can't be evaluated
+    /// - Returns: calculated value
     func evaluate(expression: [Token]) throws -> Double
 }
