@@ -15,6 +15,5 @@ protocol ExpressionConverter {
     /// - Parameter expression: a sequence to convert
     /// - Throws: сonverter errors, such as inconsistent brackets
     /// - Returns: converted sequence
-    /// Example: expression to RPN expression
     func convert(expression: [Token]) throws -> [Token]
 }

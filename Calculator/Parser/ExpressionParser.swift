@@ -15,6 +15,5 @@ protocol ExpressionParser {
     /// - Parameter expression: a string to parse
     /// - Throws: parser errors, such as one more dot, unknown operation or uknown function
     /// - Returns: sequence of tokens
-    /// Example: Parse string to math tokens
     func parse(expression: String) throws -> [Token]
 }
