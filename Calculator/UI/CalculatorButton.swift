@@ -12,8 +12,24 @@ import SwiftUI
 enum CalculatorButton {
     
     case digit(Character)
-    case sinus, cosinus, factorial, openBracket, closeBracket, addition, substraction,
-        division, multiply, power, equal, point, clearAll, clearLast, percent
+    case sinus
+    case cosinus
+    case tangens
+    case arctan
+    case factorial
+    case squart
+    case openBracket
+    case closeBracket
+    case addition
+    case substraction
+    case division
+    case multiply
+    case power
+    case equal
+    case point
+    case clearAll
+    case clearLast
+    case percent
     
     var title: String {
         switch self {
@@ -23,6 +39,8 @@ enum CalculatorButton {
             return "sin"
         case .cosinus:
             return "cos"
+        case .tangens:
+            return "tg"
         case .factorial:
             return "x!"
         case .openBracket:
@@ -49,6 +67,10 @@ enum CalculatorButton {
             return "%"
         case .clearLast:
             return "←"
+        case .squart:
+            return "√"
+        case .arctan:
+            return "arctg"
         }
     }
     
@@ -58,17 +80,19 @@ enum CalculatorButton {
             return .orange
         case .clearAll, .percent, .openBracket, .closeBracket:
             return Color(UIColor.darkGray)
-        case .sinus, .cosinus, .power, .factorial:
+        case .sinus, .cosinus, .power, .factorial, .tangens, .squart, .arctan:
             return .lightDarkGray
         case .point, .digit, .clearLast:
             return .gray
         }
     }
+    
     var buttonWidth: CGFloat {
-        return ((UIScreen.main.bounds.width - 5 * 10) / 5)
+        (UIScreen.main.bounds.width - 5 * 10) / 4
     }
+    
     var buttonHeight: CGFloat {
-        return ((UIScreen.main.bounds.height / 1.5 - 5 * 10) / 5)
+        (UIScreen.main.bounds.height / 2.7 - 5 * 10) / 4
     }
     
     func fontSize(defaultFontSize: CGFloat) -> CGFloat {
@@ -79,46 +103,30 @@ enum CalculatorButton {
             return defaultFontSize
         }
     }
+    
     func action(expression: String, calculator: Calculator?) throws -> String {
         var expression = expression
         switch self {
-        case .digit(let digit):
-            return expression + String(digit)
-        case .sinus:
-            return expression + "sin"
-        case .cosinus:
-            return expression + "cos"
+        case .equal:
+            if let calculator = calculator {
+                let result = try calculator.calculate(expression: expression)
+                if result.truncatingRemainder(dividingBy: 1) == 0 {
+                    return String(Int(result))
+                }
+                return String(result)
+            }
+            throw CalculatorError.noCalculatorInstance
         case .factorial:
             return expression + "!"
-        case .openBracket:
-            return expression + "("
-        case .closeBracket:
-            return expression + ")"
-        case .addition:
-            return expression + "+"
-        case .substraction:
-            return expression + "-"
-        case .division:
-            return expression + "÷"
-        case .multiply:
-            return expression + "×"
         case .power:
             return expression + "^"
-        case .equal:
-            let result = try calculator!.calculate(expression: expression)
-            if result.truncatingRemainder(dividingBy: 1) == 0 {
-                return String(Int(result))
-            }
-            return String(result)
-        case .point:
-            return expression + "."
         case .clearAll:
             return ""
-        case .percent:
-            return expression + "%"
         case .clearLast:
             expression.removeLast()
             return expression
+        default:
+            return expression + self.title
         }
     }
 }

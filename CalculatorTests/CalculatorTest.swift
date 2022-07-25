@@ -12,7 +12,7 @@ import XCTest
 
 final class CalculatorTest: XCTestCase {
     
-    private let calculator = CalculatorImplemantation(
+    private let calculator = CalculatorImplementation(
         parser: MathExpressionParser(),
         converter: RPNExpressionConverter(),
         evaluator: RPNExpressionEvaluator()

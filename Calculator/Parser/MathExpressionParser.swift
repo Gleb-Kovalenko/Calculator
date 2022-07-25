@@ -16,7 +16,6 @@ final class MathExpressionParser {
 extension MathExpressionParser: ExpressionParser {
     
     func parse(expression: String) throws -> [MathExpressionToken] {
-        
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
         var tokenArray: [MathExpressionToken] = []
         var tokenString = ""

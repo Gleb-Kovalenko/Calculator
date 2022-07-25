@@ -18,7 +18,6 @@ final class RPNExpressionEvaluator {
 extension RPNExpressionEvaluator: ExpressionEvaluator {
     
     func evaluate(expression: [MathExpressionToken]) throws -> Double {
-        
         var expression = expression
         var stack = Stack<MathExpressionToken>()
         

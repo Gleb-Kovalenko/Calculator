@@ -10,6 +10,7 @@
 enum PostfixUnaryOperation: Character, Equatable {
     
     case factorial = "!"
+    case percent = "%"
     
     func perform(to number: Double) throws -> Double {
         switch self {
@@ -19,6 +20,8 @@ enum PostfixUnaryOperation: Character, Equatable {
             } else {
                 throw EvaluatorError.noFactorial(number: number)
             }
+        case .percent:
+            return number / 100
         }
     }
 }

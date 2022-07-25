@@ -18,7 +18,6 @@ final class RPNExpressionConverter {
 extension RPNExpressionConverter: ExpressionConverter {
     
     func convert(expression: [MathExpressionToken]) throws -> [MathExpressionToken] {
-        
         var expression = expression
         var stack = Stack<MathExpressionToken>()
         var convertedTokenArray: [MathExpressionToken] = []
