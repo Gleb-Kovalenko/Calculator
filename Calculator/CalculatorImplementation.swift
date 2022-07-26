@@ -7,9 +7,9 @@
 
 import Foundation
 
-// MARK: - CalculatorImplemantation
+// MARK: - CalculatorImplementation
 
-final class CalculatorImplemantation<ParserType, ConverterType, EvaluatorType>
+final class CalculatorImplementation<ParserType, ConverterType, EvaluatorType>
     where
         ParserType: ExpressionParser,
         ConverterType: ExpressionConverter,
@@ -44,7 +44,7 @@ final class CalculatorImplemantation<ParserType, ConverterType, EvaluatorType>
 
 // MARK: - Calculator
 
-extension CalculatorImplemantation: Calculator {
+extension CalculatorImplementation: Calculator {
     
     /// Calculate expression
     /// - Parameter expression: expression to calculate

@@ -15,13 +15,10 @@ final class MathExpressionParser {
 
 extension MathExpressionParser: ExpressionParser {
     
-    /// Parse recieved string to sequence of math tokens
     func parse(expression: String) throws -> [MathExpressionToken] {
-        
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
         var tokenArray: [MathExpressionToken] = []
         var tokenString = ""
-        
         while !noSpacesString.isEmpty || !tokenString.isEmpty {
             let symbol = !noSpacesString.isEmpty ? noSpacesString.removeFirst() : " "
             if !symbol.isLetter && !symbol.isDot && !symbol.isNumber {
@@ -34,9 +31,9 @@ extension MathExpressionParser: ExpressionParser {
                 } else if !tokenString.isEmpty {
                     throw ParseError.unknownFunction(function: tokenString)
                 }
-                if let prefixUnaryOperation = symbol.isPrefixUnaryOperation(previousToken: tokenArray.last) {
+                if let prefixUnaryOperation = symbol.getPrefixUnaryOperation(previousToken: tokenArray.last) {
                     tokenArray.append(.unaryOperation(.prefixUnaryOperation(prefixUnaryOperation)))
-                } else if let postfixUnaryOperation = symbol.isPostfixUnaryOperation(previousToken: tokenArray.last) {
+                } else if let postfixUnaryOperation = symbol.getPostfixUnaryOperation(previousToken: tokenArray.last) {
                     tokenArray.append(.unaryOperation(.postfixUnaryOperation(postfixUnaryOperation)))
                 } else if let binaryOperation = BinaryOperation(rawValue: symbol) {
                     tokenArray.append(.binaryOperation(binaryOperation))

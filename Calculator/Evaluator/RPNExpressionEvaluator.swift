@@ -17,9 +17,7 @@ final class RPNExpressionEvaluator {
 
 extension RPNExpressionEvaluator: ExpressionEvaluator {
     
-    /// Calculate recieved RPN expression
     func evaluate(expression: [MathExpressionToken]) throws -> Double {
-        
         var expression = expression
         var stack = Stack<MathExpressionToken>()
         while !expression.isEmpty {
@@ -29,42 +27,38 @@ extension RPNExpressionEvaluator: ExpressionEvaluator {
                 stack.push(currentToken)
             case .unaryOperation(.prefixUnaryOperation(let prefixOperation)):
                 if case .number(let firstNumber) = stack.pop() {
-                    let result = prefixOperation.doOperation(number: firstNumber)
+                    let result = prefixOperation.perform(to: firstNumber)
                     stack.push(.number(result))
                 } else {
-                    throw EvaluatorError.invalidSyntaxis
+                    throw EvaluatorError.invalidSyntaxis(message: "Not a number after '\(prefixOperation.rawValue)'")
                 }
             case .binaryOperation(let operation):
                 if case .number(let secondNumber) = stack.pop(), case .number(let firstNumber) = stack.pop() {
-                    let result = operation.doOperation(firstNumber: firstNumber, secondNumber: secondNumber)
+                    let result = operation.perform(to: firstNumber, and: secondNumber)
                     stack.push(.number(result))
                 } else {
-                    throw EvaluatorError.invalidSyntaxis
+                    throw EvaluatorError.invalidSyntaxis(message: "'\(operation.rawValue)' not between two numbers")
                 }
             case .mathFunction(let function):
                 if case .number(let number) = stack.pop() {
-                    let result = function.doFunction(number: number)
+                    let result = function.perform(to: number)
                     stack.push(.number(result))
                 }
             case .unaryOperation(.postfixUnaryOperation(let operation)):
                     if case .number(let firstNumber) = stack.pop() {
-                        do {
-                            let result = try operation.doOperation(number: firstNumber)
-                            stack.push(.number(result))
-                        } catch {
-                            throw error
-                        }
+                        let result = try operation.perform(to: firstNumber)
+                        stack.push(.number(result))
                     } else {
-                        throw EvaluatorError.invalidSyntaxis
+                        throw EvaluatorError.invalidSyntaxis(message: "Not a number before '\(operation.rawValue)'")
                     }
             default:
-                throw EvaluatorError.invalidSyntaxis
+                throw EvaluatorError.invalidSyntaxis(message: "Unknown function or unknown operation - \(currentToken)")
             }
         }
         if case .number(let result) = stack.pop() {
-            return round(result * 100000)/100000
+            return round(result * 100000) / 100000
         } else {
-            throw EvaluatorError.invalidSyntaxis
+            throw EvaluatorError.invalidSyntaxis(message: "Result isn't a number")
         }
     }
 }

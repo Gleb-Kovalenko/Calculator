@@ -10,17 +10,15 @@ import Foundation
 // MARK: - Double
 
 extension Double {
-    
-    var isInt: Bool {
-        return floor(self) == self
-    }
-    
     func factorial() -> Double? {
-        if self.isInt && self >= 0 && self <= 14 {
+        if self <= 14 && self >= -14.0 {
             if self == 0.0 || self == 1.0 {
                 return 1
             }
-            return Double((2...Int(self)).reduce(1, { $0 * $1 }))
+            if self > 0 {
+                return tgamma(self + 1.0)
+            }
+            return -tgamma(self + 1.0)
         } else {
             return nil
         }

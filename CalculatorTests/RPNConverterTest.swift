@@ -7,14 +7,16 @@
 import XCTest
 @testable import Calculator
 
-class RPNConverterTest: XCTestCase {
+// MARK: - XCTestCase
+
+final class RPNConverterTest: XCTestCase {
     
     private let mathParser = MathExpressionParser()
     private let mathConverter = RPNExpressionConverter()
 
-    func testSomething() throws {
+    func testConverter() throws {
         let testDictionary: [String: [MathExpressionToken]] = [
-            "sin(cos(5)) + (1 + (-5) - 2.6)*3.9": [
+            "sin(cos(5)) + (1 + (-5) - 2.6)×3.9": [
                 .number(5.0),
                 .mathFunction(.cosinus),
                 .mathFunction(.sinus),
@@ -28,7 +30,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.multiply),
                 .binaryOperation(.addition)
             ],
-            "5 + (-3) / 2": [
+            "5 + (-3) ÷ 2": [
                 .number(5.0),
                 .number(3.0),
                 .unaryOperation(.prefixUnaryOperation(.negative)),
@@ -36,7 +38,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.division),
                 .binaryOperation(.addition)
             ],
-            "sin(cos(sin(cos(5 * 3 ^ 3 - (-3)))))" : [
+            "sin(cos(sin(cos(5 × 3 ^ 3 - (-3)))))" : [
                 .number(5.0),
                 .number(3.0),
                 .number(3.0),
@@ -50,7 +52,7 @@ class RPNConverterTest: XCTestCase {
                 .mathFunction(.cosinus),
                 .mathFunction(.sinus)
             ],
-            "(-5) + 4.21 * 0.941 / 2.3151": [
+            "(-5) + 4.21 × 0.941 ÷ 2.3151": [
                 .number(5.0),
                 .unaryOperation(.prefixUnaryOperation(.negative)),
                 .number(4.21),
@@ -60,7 +62,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.division),
                 .binaryOperation(.addition)
             ],
-            "sin((-5)) + 5 * 2.33 / 5.12 ^ 3.32": [
+            "sin((-5)) + 5 × 2.33 ÷ 5.12 ^ 3.32": [
                 .number(5.0),
                 .unaryOperation(.prefixUnaryOperation(.negative)),
                 .mathFunction(.sinus),
@@ -73,7 +75,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.division),
                 .binaryOperation(.addition)
             ],
-            "9.44 * (sin(5.21) / cos(3.21)) / 5 ^ 2.3": [
+            "9.44 × (sin(5.21) ÷ cos(3.21)) ÷ 5 ^ 2.3": [
                 .number(9.44),
                 .number(5.21),
                 .mathFunction(.sinus),
@@ -86,7 +88,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.power),
                 .binaryOperation(.division)
             ],
-            "tg(3) - (-5.21) * 8.4 / 9.12": [
+            "tg(3) - (-5.21) × 8.4 ÷ 9.12": [
                 .number(3.0),
                 .mathFunction(.tg),
                 .number(5.21),
@@ -97,7 +99,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.division),
                 .binaryOperation(.substraction)
             ],
-            "5.1 ^ 5.3 * 1.23 - 9.5 / 7.6 * cos((-1.2))": [
+            "5.1 ^ 5.3 × 1.23 - 9.5 ÷ 7.6 × cos((-1.2))": [
                 .number(5.1),
                 .number(5.3),
                 .binaryOperation(.power),
@@ -112,7 +114,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.multiply),
                 .binaryOperation(.substraction)
             ],
-            "5.12 + 3.4  - 1.2   / COS(4.1) * sin(CoS((-9.1)))": [
+            "5.12 + 3.4  - 1.2   ÷ COS(4.1) × sin(CoS((-9.1)))": [
                 .number(5.12),
                 .number(3.4),
                 .binaryOperation(.addition),
@@ -127,7 +129,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.multiply),
                 .binaryOperation(.substraction)
             ],
-            "cos(sin(tg(9.152))) * 1.23 / 4.3": [
+            "cos(sin(tg(9.152))) × 1.23 ÷ 4.3": [
                 .number(9.152),
                 .mathFunction(.tg),
                 .mathFunction(.sinus),
@@ -137,7 +139,7 @@ class RPNConverterTest: XCTestCase {
                 .number(4.3),
                 .binaryOperation(.division)
             ],
-            "(5 * 4 / 2)!": [
+            "(5 × 4 ÷ 2)!": [
                 .number(5.0),
                 .number(4.0),
                 .binaryOperation(.multiply),
@@ -145,7 +147,7 @@ class RPNConverterTest: XCTestCase {
                 .binaryOperation(.division),
                 .unaryOperation(.postfixUnaryOperation(.factorial))
             ],
-            "(2! * 2 / 2)!!": [
+            "(2! × 2 ÷ 2)!!": [
                 .number(2.0),
                 .unaryOperation(.postfixUnaryOperation(.factorial)),
                 .number(2.0),

@@ -17,7 +17,7 @@ extension Character {
     ///
     /// A character is a prefix unary operation when it appears either first in an expression
     /// or not before another number or close bracket
-    func isPrefixUnaryOperation(previousToken: MathExpressionToken?) -> PrefixUnaryOperation? {
+    func getPrefixUnaryOperation(previousToken: MathExpressionToken?) -> PrefixUnaryOperation? {
         if let prefixOperation = PrefixUnaryOperation(rawValue: self) {
             switch previousToken {
             case .number:
@@ -34,7 +34,7 @@ extension Character {
     /// Check if it is a postfix unary operation character and returns postfix unary operation token if it's exists
     ///
     /// A character is a postfix unary operation when it before another number or close bracket
-    func isPostfixUnaryOperation(previousToken: MathExpressionToken?) -> PostfixUnaryOperation? {
+    func getPostfixUnaryOperation(previousToken: MathExpressionToken?) -> PostfixUnaryOperation? {
         if let postfixOperation = PostfixUnaryOperation(rawValue: self) {
             switch previousToken {
             case .number, .unaryOperation(.postfixUnaryOperation):

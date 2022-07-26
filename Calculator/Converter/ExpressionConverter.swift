@@ -14,7 +14,6 @@ protocol ExpressionConverter {
     /// Convert received sequence to a new sequence
     /// - Parameter expression: a sequence to convert
     /// - Throws: сonverter errors, such as inconsistent brackets
-    /// - Returns: new sequence
-    /// Example: Parsed string to RPN string
+    /// - Returns: converted sequence
     func convert(expression: [Token]) throws -> [Token]
 }

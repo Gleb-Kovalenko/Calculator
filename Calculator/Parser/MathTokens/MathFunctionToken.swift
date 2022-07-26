@@ -6,15 +6,18 @@
 //
 
 import Foundation
+import Darwin
 
 // MARK: - MathFunction
 
 enum MathFunction: String, Equatable {
+    
     case sinus = "sin"
     case cosinus = "cos"
     case tg
+    case arctg
     
-    func doFunction(number: Double) -> Double {
+    func perform(to number: Double) -> Double {
         switch self {
         case .sinus:
             return sin(number)
@@ -22,6 +25,8 @@ enum MathFunction: String, Equatable {
             return cos(number)
         case .tg:
             return tan(number)
+        case .arctg:
+            return atan(number)
         }
     }
 }
