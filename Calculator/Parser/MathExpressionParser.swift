@@ -19,7 +19,6 @@ extension MathExpressionParser: ExpressionParser {
         var noSpacesString = expression.replacingOccurrences(of: " ", with: "").lowercased()
         var tokenArray: [MathExpressionToken] = []
         var tokenString = ""
-        
         while !noSpacesString.isEmpty || !tokenString.isEmpty {
             let symbol = !noSpacesString.isEmpty ? noSpacesString.removeFirst() : " "
             if !symbol.isLetter && !symbol.isDot && !symbol.isNumber {

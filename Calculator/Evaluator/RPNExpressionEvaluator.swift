@@ -20,7 +20,6 @@ extension RPNExpressionEvaluator: ExpressionEvaluator {
     func evaluate(expression: [MathExpressionToken]) throws -> Double {
         var expression = expression
         var stack = Stack<MathExpressionToken>()
-        
         while !expression.isEmpty {
             let currentToken = expression.removeFirst()
             switch currentToken {

@@ -21,7 +21,6 @@ extension RPNExpressionConverter: ExpressionConverter {
         var expression = expression
         var stack = Stack<MathExpressionToken>()
         var convertedTokenArray: [MathExpressionToken] = []
-        
         while !expression.isEmpty {
             let currentToken = expression.removeFirst()
             switch currentToken {
