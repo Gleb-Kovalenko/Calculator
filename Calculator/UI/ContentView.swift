@@ -5,15 +5,9 @@ import SwiftUI
 struct ContentView: View {
 
     // MARK: - Properties
-
-    @State var expression = ""
-    @State var calculatorDisplay = ""
     
-    let calculator = CalculatorImplementation(
-        parser: MathExpressionParser(),
-        converter: RPNExpressionConverter(),
-        evaluator: RPNExpressionEvaluator()
-    )
+    @StateObject private var viewModel = ViewModel()
+    
     let buttons: [[CalculatorButton]] = [
         [.clearAll, .openBracket, .closeBracket, .percent],
         [.sinus, .cosinus, .tangens, .arctan],
@@ -32,7 +26,7 @@ struct ContentView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .trailing) {
-                    Text(calculatorDisplay)
+                    Text(viewModel.calculatorDisplay)
                         .bold()
                         .font(.system(size: LayoutConstants.fontSizeCalculatorString))
                         .foregroundColor(.white)
@@ -44,19 +38,7 @@ struct ContentView: View {
                     HStack(spacing: 12) {
                         ForEach(buttons[index], id: \.title) { item in
                             Button(action: {
-                                do {
-                                    switch item {
-                                    case .equal:
-                                        expression = try item.action(expression: expression, calculator: calculator)
-                                        calculatorDisplay = expression
-                                    default:
-                                        expression = try item.action(expression: expression, calculator: nil)
-                                        calculatorDisplay = expression
-                                    }
-                                } catch let error {
-                                    calculatorDisplay = error.localizedDescription
-                                    expression = ""
-                                }
+                                viewModel.addAction(of: item)
                             }, label: {
                                 Text(item.title)
                                     .font(.system(size: LayoutConstants.fontSizeButton, weight: .bold))
@@ -82,6 +64,8 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+// MARK: - LayoutConstants
 
 private enum LayoutConstants {
     static let fontSizeButton = UIScreen.main.bounds.width * 0.06
